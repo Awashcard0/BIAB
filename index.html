@@ -177,19 +177,28 @@ newTabButton.addEventListener('click', () => {
   newTab.classList.add('active');
   iframes[tabs.indexOf(newTab)].style.display = 'block';
 
-  // Handle new tab clicks
-  newTab.addEventListener('click', () => {
-    tabs.forEach(tab => {
-      tab.classList.remove('active');
-    });
-    newTab.classList.add('active');
-    iframes.forEach((iframe, index) => {
-      if (iframes[index] === newIframe) {
-iframe.style.display = 'block';
-} else {
-iframe.style.display = 'none';
+  // Create close button for new tab
+  const closeButton = document.createElement('span');
+  closeButton.innerHTML = '&times;';
+  closeButton.classList.add('close-button');
+  newTab.appendChild(closeButton);
+
+  // Handle the closing of new tabs
+  closeButton.addEventListener('click', (event) => {
+    event.stopPropagation();
+    // Remove the new tab and iframe
+newTab.remove();
+newIframe.remove();
+
+// Update the arrays
+tabs.splice(tabs.indexOf(newTab), 1);
+iframes.splice(iframes.indexOf(newIframe), 1);
+
+// Show the first tab if there are no more tabs
+if (tabs.length === 0) {
+  tabs[0].classList.add('active');
+  iframes[0].style.display = 'block';
 }
-});
 });
 
 // Handle input in URL bar for new tab
@@ -201,7 +210,6 @@ newIframe.src = urlInput.value;
 }
 });
 });
-
 function URLenterd() {
     let activeTab = tabs.find(tab => tab.classList.contains('active'));
     let activeIframe = iframes[tabs.indexOf(activeTab)];
