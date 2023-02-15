@@ -15,6 +15,7 @@
     <iframe src="about:blank" id="iframe3"></iframe>
   </div>
 </div>
+<div id="screensaver"><p id="screen-text">This is a weird thing. <br>Most sites dont work do to CROS not being setup proprley. <br>Only tab 1, 2 and 3 will save. <br>Right click and cicke reload frame. <br>Click to close</p> <a href="https://github.com/Awashcard0/BIAB">Github</a></div>
 <style>
   #browser {
   width: 100%;
@@ -74,6 +75,11 @@ iframe {
   border: none;
 }
 
+#screensaver { position: absolute; width: 100%; height:100%; left:0px; top: 0px; display: none; z-index:9999; background-color:black;}
+
+#screen-text {
+  color: white;
+}
 </style>
 <script>
 const tabsContainer = document.querySelector('#tabs');
@@ -216,4 +222,60 @@ function URLenterd() {
     activeIframe.src = urlInput.value;
     urlInput.value = "https://";
   }
+</script>
+<script>
+  //start thing
+  
+  $(document).ready(function() {
+var mousetimeout;
+var screensaver_active = false;
+var idletime = 5;
+
+    $('#screensaver').fadeIn();
+    screensaver_active = true;
+    screensaver_animation();
+
+function stop_screensaver(){
+    $('#screensaver').fadeOut();
+    screensaver_active = false;
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.round(Math.random() * 15)];
+    }
+    return color;
+}
+
+$(document).click(function(){
+    clearTimeout(mousetimeout);
+	
+    if (screensaver_active) {
+        stop_screensaver();
+    }
+
+    mousetimeout = setTimeout(function(){
+        
+    }, 500 * idletime); // 5 secs			
+});
+
+$(document).mousemove(function(){
+    clearTimeout(mousetimeout); 
+
+    mousetimeout = setTimeout(function(){
+        show_screensaver();
+    }, 1000 * idletime); // 5 secs			
+});
+
+function screensaver_animation(){
+    if (screensaver_active) {
+        $('#screensaver').animate(
+            {backgroundColor: getRandomColor()},
+            400,
+            screensaver_animation);
+    }
+}
+});
 </script>
