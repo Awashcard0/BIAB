@@ -1,4 +1,5 @@
 <title>BIAB</title>
+<body id="body">
 <div id="browser">
   <div id="url-bar">
     <input type="text" placeholder="Enter URL (Must start with https://)" id="url-input">
@@ -16,6 +17,7 @@
   </div>
 </div>
 <div id="screensaver"><p id="screen-text">This is a weird thing. <br>Most sites dont work do to CROS not being setup proprley. <br>Only tab 1, 2 and 3 will save. <br>Right click and cicke reload frame. <br>Click to close</p> <a href="https://github.com/Awashcard0/BIAB">Github</a></div>
+</body>
 <style>
   #browser {
   width: 100%;
@@ -227,17 +229,17 @@ function URLenterd() {
   //start thing
 var screensaver_active = false;
 
-    $('#screensaver').fadeIn();
+    document.getElementById("screensaver").fadeIn();
     screensaver_active = true;
     screensaver_animation();
 
 function stop_screensaver(){
-    $('#screensaver').fadeOut();
+  document.getElementById("screensaver").fadeOut();
     screensaver_active = false;
 }
 
 
-$(document).click(function(){
+document.getElementById("body").click(function(){
     if (screensaver_active) {
         stop_screensaver();
     }
@@ -246,7 +248,7 @@ $(document).click(function(){
 
 function screensaver_animation(){
     if (screensaver_active) {
-        $('#screensaver').animate(
+      document.getElementById("screensaver").animate(
             {backgroundColor: black},
             400,
             screensaver_animation);
