@@ -76,7 +76,7 @@ iframe {
 
 </style>
 <script>
-  const tabsContainer = document.querySelector('#tabs');
+const tabsContainer = document.querySelector('#tabs');
 const tabContent = document.querySelector('#tab-content');
 const urlInput = document.querySelector('#url-input');
 
@@ -106,61 +106,16 @@ tabs.forEach((tab, index) => {
       }
     });
   });
-});
 
-// Handle the creation of new tabs
-const newTabButton = document.createElement('div');
-newTabButton.classList.add('tab');
-newTabButton.textContent = '+';
-tabsContainer.appendChild(newTabButton);
-newTabButton.addEventListener('click', () => {
-  // Create new tab
-  const newTab = document.createElement('div');
-  newTab.classList.add('tab');
-  newTab.textContent = 'New Tab';
-  tabsContainer.insertBefore(newTab, newTabButton);
-  tabs.push(newTab);
+  // Create close button for each tab
+  const closeButton = document.createElement('span');
+  closeButton.innerHTML = '&times;';
+  closeButton.classList.add('close-button');
+  tab.appendChild(closeButton);
 
-  // Create new iframe
-  const newIframe = document.createElement('iframe');
-  newIframe.src = 'about:blank';
-  newIframe.id = "iframe" + iframes
-  newIframe.style.display = 'none';
-  tabContent.appendChild(newIframe);
-  iframes.push(newIframe);
-
-  // Show the new tab and hide the rest
-  newTab.classList.add('active');
-  tabs.forEach((tab, index) => {
-    if (tab !== newTab) {
-      tab.classList.remove('active');
-    }
-  });
-  iframes.forEach((iframe, index) => {
-    if (iframe !== newIframe) {
-      iframe.style.display = 'none';
-    }
-  });
-
-  // Handle new tab clicks
-  newTab.addEventListener('click', () => {
-    tabs.forEach(tab => {
-      tab.classList.remove('active');
-    });
-    newTab.classList.add('active');
-    iframes.forEach((iframe, index) => {
-      if (iframes[index] === newIframe) {
-        iframe.style.display = 'block';
-      } else {
-        iframe.style.display = 'none';
-      }
-    });
-  });
-});
-
-// Handle the closing of tabs
-tabs.forEach(tab, index); {
-  tab.addEventListener('dblclick', () => {
+  // Handle the closing of tabs
+  closeButton.addEventListener('click', (event) => {
+    event.stopPropagation();
     // Remove the tab and iframe
     tab.remove();
     iframes[index].remove();
@@ -185,16 +140,66 @@ tabs.forEach(tab, index); {
       }
     }
   });
-};
+});
 
-// Handle URL navigation
-urlInput.addEventListener('keydown', event => {
-  if (event.key == 'Enter') {
-    let activeTab = tabs.find(tab => tab.classList.contains('active'));
-    let activeIframe = iframes[tabs.indexOf(activeTab)];
-    activeIframe.src = urlInput.value;
-    urlInput.value = "https://";
-  }
+// Handle the creation of new tabs
+const newTabButton = document.createElement('div');
+newTabButton.classList.add('tab');
+newTabButton.textContent = '+';
+tabsContainer.appendChild(newTabButton);
+newTabButton.addEventListener('click', () => {
+  // Create new tab
+  const newTab = document.createElement('div');
+  newTab.classList.add('tab');
+  newTab.textContent = 'New Tab';
+  tabsContainer.insertBefore(newTab, newTabButton);
+  tabs.push(newTab);
+
+  // Create new iframe
+  const newIframe = document.createElement('iframe');
+  newIframe.src = 'about:blank';
+  newIframe.style.display = 'none';
+  tabContent.appendChild(newIframe);
+  iframes.push(newIframe);
+
+  // Show the new tab and hide the rest
+  tabs.forEach((tab, index) => {
+    if (tab !== newTab) {
+      tab.classList.remove('active');
+    }
+  });
+  iframes.forEach((iframe, index) => {
+    if (iframe !== newIframe) {
+      iframe.style.display = 'none';
+    }
+  });
+
+  newTab.classList.add('active');
+  iframes[tabs.indexOf(newTab)].style.display = 'block';
+
+  // Handle new tab clicks
+  newTab.addEventListener('click', () => {
+    tabs.forEach(tab => {
+      tab.classList.remove('active');
+    });
+    newTab.classList.add('active');
+    iframes.forEach((iframe, index) => {
+      if (iframes[index] === newIframe) {
+iframe.style.display = 'block';
+} else {
+iframe.style.display = 'none';
+}
+});
+});
+
+// Handle input in URL bar for new tab
+urlInput.value = '';
+urlInput.addEventListener('keydown', (event) => {
+if (event.key === 'Enter') {
+event.preventDefault();
+newIframe.src = urlInput.value;
+}
+});
 });
 
 function URLenterd() {
