@@ -232,17 +232,16 @@ function URLenterd() {
   //start thing
 var screensaver_active = false;
 
-    document.getElementById("screensaver").fadeIn();
+    $('#screensaver').fadeIn();
     screensaver_active = true;
     screensaver_animation();
 
-function stop_screensaver(){
-  document.getElementById("screensaver").fadeOut();
+    function stop_screensaver(){
+    $('#screensaver').fadeOut();
     screensaver_active = false;
 }
 
-
-document.getElementById("body").click(function(){
+$(document).click(function(){
     if (screensaver_active) {
         stop_screensaver();
     }
@@ -251,8 +250,8 @@ document.getElementById("body").click(function(){
 
 function screensaver_animation(){
     if (screensaver_active) {
-      document.getElementById("screensaver").animate(
-            {backgroundColor: black},
+        $('#screensaver').animate(
+            {},
             400,
             screensaver_animation);
     }
