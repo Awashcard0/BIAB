@@ -16,7 +16,8 @@
     <iframe src="about:blank" id="iframe3"></iframe>
   </div>
 </div>
-<div id="screensaver"><p id="screen-text">This is a weird thing. <br>Most sites dont work do to CROS not being setup proprley. <br>Only tab 1, 2 and 3 will save. <br>Right click and cicke reload frame. <br>Click to close</p> <a href="https://github.com/Awashcard0/BIAB">Github</a></div>
+<div id="screensaver"><p id="screen-text">This is a weird thing. <br>Most sites dont work do to CROS not being setup proprley. <br>Only tab 1, 2 and 3 will save. <br>Right click and click reload frame. <br></p><button onclick="stop_screensaver()">Click to close</button><br> <a href="https://github.com/Awashcard0/BIAB">Github</a>
+</div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -230,13 +231,12 @@ function URLenterd() {
 </script>
 <script>
   //start thing
-var screensaver_active = false;
+var screensaver_active = true;
 
     $('#screensaver').fadeIn();
-    screensaver_active = true;
     screensaver_animation();
 
-    function stop_screensaver(){
+    function stop_screensaver() {
     $('#screensaver').fadeOut();
     screensaver_active = false;
 }
